@@ -1,9 +1,10 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import Toast from 'vue-toastification';
 import './index.css';
+import 'vue-toastification/dist/index.css';
+import { vMaska } from "maska/vue";
 
-import Toast from "vue-toastification";
-import "vue-toastification/dist/index.css";
 
 const app = createApp(App);
 
@@ -21,5 +22,5 @@ app.use(Toast, {
     icon: true,
     rtl: false
 });
-
+app.use({ directives: { maska: vMaska }});
 app.mount('#app');

@@ -201,7 +201,6 @@ export function useApp() {
             throw error;  // Pode lançar o erro novamente ou retornar uma mensagem
         }
     };
-    
 
     // Montagem inicial
     onMounted(() => {
