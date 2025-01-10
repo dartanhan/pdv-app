@@ -26,8 +26,21 @@ export function useApp() {
 
             localStorage.setItem("produtos", JSON.stringify(produtosLocal));
             produtos.value = produtosLocal;
-        } catch (error) {
-            toast.error("Erro ao sincronizar produtos.");
+        } catch (err) {
+            if (err.code === 'ERR_NETWORK') {
+                // Erro de conexão recusada
+                console.error("Erro de conexão: servidor não disponível.");
+                toast.error("Erro de conexão: servidor não está respondendo.");
+            } else if (err.response) {
+                // Erro retornado pela API
+                const { message, error } = err.response.data;
+                console.error("Erro da API:", error);
+                toast.error(`${message} - ${error}`);
+            } else {
+                // Outros tipos de erro (como timeout ou erro desconhecido)
+                console.error("Erro desconhecido:", err);
+                toast.error("Erro ao sincronizar Produtos.");
+            }
         }
     };
 
@@ -40,8 +53,21 @@ export function useApp() {
             localStorage.setItem("clientes", JSON.stringify(clientesLocal));
             clientes.value = clientesLocal;
             //console.log('clientes', clientes);
-        } catch (error) {
-            toast.error("Erro ao sincronizar clientes.");
+        } catch (err) {
+            if (err.code === 'ERR_NETWORK') {
+                // Erro de conexão recusada
+                console.error("Erro de conexão: servidor não disponível.");
+                toast.error("Erro de conexão: servidor não está respondendo.");
+            } else if (err.response) {
+                // Erro retornado pela API
+                const { message, error } = err.response.data;
+                console.error("Erro da API:", error);
+                toast.error(`${message} - ${error}`);
+            } else {
+                // Outros tipos de erro (como timeout ou erro desconhecido)
+                console.error("Erro desconhecido:", err);
+                toast.error("Erro ao sincronizar Cientes.");
+            }
         }
     };
 
@@ -55,22 +81,50 @@ export function useApp() {
             localStorage.setItem("formaPagamentos", JSON.stringify(formaPagamentosLocal));
             formaPagamentos.value = formaPagamentosLocal;
             //console.log('formaPagamentos', formaPagamentos);
-        } catch (error) {
-            toast.error("Erro ao sincronizar Forma de Pagamentos.");
+        } catch (err) {
+           // console.log('err formaPagamentos', err.code);
+            if (err.code === 'ERR_NETWORK') {
+                // Erro de conexão recusada
+                console.error("Erro de conexão: servidor não disponível.");
+                toast.error("Erro de conexão: servidor não está respondendo.");
+            } else if (err.response) {
+                // Erro retornado pela API
+                const { message, error } = err.response.data;
+                console.error("Erro da API:", error);
+                toast.error(`${message} - ${error}`);
+            } else {
+                // Outros tipos de erro (como timeout ou erro desconhecido)
+                console.error("Erro desconhecido:", err);
+                toast.error("Erro ao sincronizar Forma de Pagamentos.");
+            }
         }
     };
 
-    // Sincronização de clientes
+    // Sincronização de formaEntregas
     const sincronizarFormaEntregas = async () => {
         try {
             const response = await axios.get(url + "/api/formaEntregas");
             const formaEntregasLocal = response.data;
 
-            localStorage.setItem("formaPagamentos", JSON.stringify(formaEntregasLocal));
+            localStorage.setItem("formaEntregas", JSON.stringify(formaEntregasLocal));
             formaEntregas.value = formaEntregasLocal;
            // console.log('formaEntregas', formaEntregas);
-        } catch (error) {
-            toast.error("Erro ao sincronizar Forma de Entregas.");
+        } catch (err) {
+            console.log('err formaEntregas', err);
+            if (err.code === 'ERR_NETWORK') {
+                // Erro de conexão recusada
+                console.error("Erro de conexão: servidor não disponível.");
+                toast.error("Erro de conexão: servidor não está respondendo.");
+            } else if (err.response) {
+                // Erro retornado pela API
+                const { message, error } = err.response.data;
+                console.error("Erro da API:", error);
+                toast.error(`${message} - ${error}`);
+            } else {
+                // Outros tipos de erro (como timeout ou erro desconhecido)
+                console.error("Erro desconhecido:", err);
+                toast.error("Erro ao sincronizar Forma de Entregas.");
+            }
         }
     };
 

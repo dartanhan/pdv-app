@@ -4,7 +4,8 @@ import Toast from 'vue-toastification';
 import './index.css';
 import 'vue-toastification/dist/index.css';
 import { vMaska } from "maska/vue";
-
+import PrimeVue from 'primevue/config';
+import InputMask from 'primevue/inputmask';
 
 const app = createApp(App);
 
@@ -22,5 +23,8 @@ app.use(Toast, {
     icon: true,
     rtl: false
 });
-app.use({ directives: { maska: vMaska }});
+app.directive("maska", vMaska);
+app.use(PrimeVue, { theme: 'none' });
+app.component('InputMask', InputMask);
+
 app.mount('#app');
